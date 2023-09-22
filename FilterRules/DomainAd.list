@@ -660,10 +660,6 @@ HOST, dispatcher.360in.com ,REJECT
 HOST, ad.360in.com ,REJECT
 HOST, exp.360in.com ,REJECT
 
-# (D) ,REJECT
-# > 豆瓣 ,REJECT
-AND,((USER-AGENT,Frodo*), (HOST, 119.29.29.29)) ,REJECT
-
 # (G) ,REJECT
 # > Google ,REJECT
 HOST-SUFFIX, doubleclick.net ,REJECT
@@ -923,7 +919,6 @@ HOST, mqtt.zhihu.com ,REJECT
 HOST, sugar.zhihu.com ,REJECT
 HOST, 118.89.204.198 ,REJECT
 IP-CIDR,118.89.204.198/32,REJECT
-IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/128,REJECT
 # > 中关村 ,REJECT
 HOST, apppv.zol.com.cn ,REJECT
 HOST, pvnapp.zol.com.cn
