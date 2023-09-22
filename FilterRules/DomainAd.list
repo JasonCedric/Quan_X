@@ -921,4 +921,4 @@ HOST, 118.89.204.198 ,REJECT
 IP-CIDR,118.89.204.198/32,REJECT
 # > 中关村 ,REJECT
 HOST, apppv.zol.com.cn ,REJECT
-HOST, pvnapp.zol.com.cn
+HOST, pvnapp.zol.com.cn ,REJECT
