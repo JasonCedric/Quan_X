@@ -556,3 +556,374 @@ HOST, saad.ms.zhangyue.net, REJECT
 HOST, toots-a.akamaihd.net, REJECT
 HOST, videoads-cloud.rovio.com, REJECT
 HOST, video-ads-module.ad-tech.nbcuni.com, REJECT
+
+
+# > 通用 ,REJECT
+HOST-KEYWORD,adservice ,REJECT
+
+# (0~9) ,REJECT
+# > 51视频 ,REJECT
+HOST, ad.51wnl-cq.com ,REJECT
+HOST, adextra.51wnl-cq.com ,REJECT
+HOST, log.51wnl-cq.com ,REJECT
+HOST, r.51wnl-cq.com ,REJECT
+
+# (A) ,REJECT
+# > Apple ,REJECT
+HOST-SUFFIX, iadsdk.apple.com ,REJECT
+HOST-SUFFIX, ads.internal.unity3d.com ,REJECT
+HOST-SUFFIX, ads.prd.ie.internal.unity3d.com ,REJECT
+HOST-SUFFIX, unityads.unity3d.com ,REJECT
+#  (阿里) ,REJECT
+HOST, tunion-api.m.taobao.com ,REJECT
+# > 优酷 ,REJECT
+HOST-SUFFIX, atm.youku.com ,REJECT
+HOST, ad.mobile.youku.com ,REJECT
+HOST, adx.op.cp18.ott.cibntv.net ,REJECT
+HOST, iyes.youku.com ,REJECT
+HOST, pl.cp31.ott.cibntv.net ,REJECT
+# > AMap ,REJECT
+HOST, optimus-ads.amap.com ,REJECT
+HOST, optimus-ads.amap.com.w.alikunlun.com ,REJECT
+
+# > Autohome ,REJECT
+HOST, adproxy.autohome.com.cn ,REJECT
+HOST, rd.autohome.com.cn ,REJECT
+HOST, al.autohome.com.cn ,REJECT
+HOST, applogapi.autohome.com.cn ,REJECT
+HOST, adm0.autoimg.cn ,REJECT
+HOST, adm1.autoimg.cn ,REJECT
+HOST, adm2.autoimg.cn ,REJECT
+HOST, adm3.autoimg.cn ,REJECT
+
+# (B) ,REJECT
+# --- (百度) --- ,REJECT
+HOST-SUFFIX, duapps.com ,REJECT
+HOST-SUFFIX, cpro.baidu.com ,REJECT
+HOST-SUFFIX, pos.baidu.com ,REJECT
+HOST, afd.baidu.com ,REJECT
+HOST, als.baidu.com ,REJECT
+HOST, duclick.baidu.com ,REJECT
+HOST, mobads.baidu.com ,REJECT
+HOST, mobads-logs.baidu.com ,REJECT
+HOST, nadvideo2.baidu.com ,REJECT
+HOST, nsclick.baidu.com ,REJECT
+# > 爱奇艺 ,REJECT
+HOST, t7z.cupid.iqiyi.com ,REJECT
+HOST, t7z.cupid.ptqy.gitv.tv ,REJECT
+IP-CIDR,101.227.97.240/32,no-resolve ,REJECT
+IP-CIDR,101.227.200.11/32,no-resolve ,REJECT
+IP-CIDR,101.227.200.28/32,no-resolve ,REJECT
+IP-CIDR,124.192.153.42/32,no-resolve ,REJECT
+
+# > ByteDance ,REJECT
+HOST-SUFFIX, pangolin-sdk-toutiao.com ,REJECT
+HOST-SUFFIX, pangolin-sdk-toutiao-b.com ,REJECT
+HOST, ad.toutiao.com ,REJECT
+HOST, dsp.toutiao.com ,REJECT
+HOST, pangolin.snssdk.com ,REJECT
+# > 百词斩 ,REJECT
+HOST, advertise.baicizhan.com ,REJECT
+HOST, advertise.baicizhan.org ,REJECT
+# > BitAuto ,REJECT
+HOST, adx.yiche.com ,REJECT
+HOST, log.ycapp.yiche.com ,REJECT
+# > Braze ,REJECT
+HOST-SUFFIX, iad.appboy.com ,REJECT
+HOST-SUFFIX, iad-03.appboy.com ,REJECT
+HOST-SUFFIX, iad-01.braze.com ,REJECT
+HOST-SUFFIX, iad-02.braze.com ,REJECT
+HOST-SUFFIX, iad-03.braze.com ,REJECT
+HOST-SUFFIX, iad-04.braze.com ,REJECT
+HOST-SUFFIX, iad-05.braze.com ,REJECT
+HOST-SUFFIX, iad-06.braze.com ,REJECT
+HOST-SUFFIX, iad-08.braze.com ,REJECT
+
+# (C) ,REJECT
+# > CCTVVideo ,REJECT
+HOST, adstore-index-1252524079.file.myqcloud.com ,REJECT
+# > CNTV ,REJECT
+HOST, galaxy.bjcathay.com ,REJECT
+HOST, mdrecv.app.cntvwb.cn ,REJECT
+HOST, sdapprecv.app.cntvwb.cn ,REJECT
+HOST, vdapprecv.app.cntvwb.cn ,REJECT
+# > ChinaTelecom ,REJECT
+HOST, ad.21cn.com ,REJECT
+HOST, ad.k.21cn.com ,REJECT
+HOST, admarket.21cn.com ,REJECT
+HOST, adshows.21cn.com ,REJECT
+# > Chelaile ,REJECT
+HOST, atrace.chelaile.net.cn ,REJECT
+HOST, logs.chelaile.net.cn ,REJECT
+# > Camera360 ,REJECT
+HOST, dispatcher.360in.com ,REJECT
+HOST, ad.360in.com ,REJECT
+HOST, exp.360in.com ,REJECT
+
+# (D) ,REJECT
+# > 豆瓣 ,REJECT
+AND,((USER-AGENT,Frodo*), (HOST, 119.29.29.29)) ,REJECT
+
+# (G) ,REJECT
+# > Google ,REJECT
+HOST-SUFFIX, doubleclick.net ,REJECT
+HOST-SUFFIX, googleadservices.com ,REJECT
+HOST-SUFFIX, googleadsserving.cn ,REJECT
+HOST-SUFFIX, googlesyndication.com ,REJECT
+HOST-SUFFIX, googletagservices.com ,REJECT
+HOST, ads.youtube.com ,REJECT
+
+# (H) ,REJECT
+# > 湖南TV ,REJECT
+HOST-SUFFIX, da.mgtv.com ,REJECT
+HOST-SUFFIX, da.hunantv.com ,REJECT
+HOST-SUFFIX, log.hunantv.com ,REJECT
+HOST-SUFFIX, v2.hunantv.com ,REJECT
+# > 虎扑 ,REJECT
+HOST, adx.hupu.com ,REJECT
+HOST, adx-api.hupu.com ,REJECT
+HOST, goblin.hupu.com ,REJECT
+# > happycast ,REJECT
+HOST, ad.hpplay.cn ,REJECT
+HOST, adc.hpplay.cn ,REJECT
+HOST, adcdn.hpplay.cn ,REJECT
+HOST, adeng.hpplay.cn ,REJECT
+HOST, pin.hpplay.cn ,REJECT
+HOST, rp.hpplay.cn ,REJECT
+HOST, rpt.hpplay.cn ,REJECT
+
+# (J) ,REJECT
+# >jxedt ,REJECT
+HOST, richmanapi.jxedt.com ,REJECT
+HOST, richmanmain.jxedt.com ,REJECT
+HOST, richmanrules.jxedt.com ,REJECT
+
+# (K) ,REJECT
+# > 金山词霸 ,REJECT
+HOST, ad-stat.ksosoft.com ,REJECT
+HOST, img.auction-ads.wpscdn.cn ,REJECT
+HOST, counter.kingsoft.com ,REJECT
+HOST, counter.ksosoft.com ,REJECT
+HOST, minfo.wps.cn ,REJECT
+HOST, mobad.ijinshan.com ,REJECT
+HOST, ups.ksmobile.net ,REJECT
+HOST, ws.ksmobile.net ,REJECT
+# > 快手 ,REJECT
+HOST-SUFFIX, e.kuaishou.com ,REJECT
+HOST, js-ad.a.yximgs.com ,REJECT
+
+# (L) ,REJECT
+# > 乐视 ,REJECT
+HOST-SUFFIX, webp2p.letv.com ,REJECT
+HOST, ark.letv.com ,REJECT
+HOST, emma-414870e223.huodonghezi.com ,REJECT
+HOST, g3.letv.com ,REJECT
+HOST, n.mark.letv.com ,REJECT
+# > LinkWiFi ,REJECT
+HOST, a.wkanx.com ,REJECT
+HOST, cwx.lianwangtech.com ,REJECT
+HOST, c1wx.lianwangtech.com ,REJECT
+
+# (M) ,REJECT
+# > Microsoft ,REJECT
+HOST-SUFFIX, ads.msn.com ,REJECT
+HOST-SUFFIX, ads1.msn.com ,REJECT
+HOST-SUFFIX, ads2.msn.com ,REJECT
+HOST-SUFFIX, bingads.microsoft.com ,REJECT
+HOST-SUFFIX, rads.msn.com ,REJECT
+HOST, mobileads.msn.com ,REJECT
+# > 墨迹天气 ,REJECT
+HOST, ad.api.moji.com ,REJECT
+HOST, adlaunch.moji.com ,REJECT
+HOST, ads.mojicdn.com ,REJECT
+HOST, v1.log.moji.com ,REJECT
+# > 咪咕视频 ,REJECT
+HOST-SUFFIX, ad.cmvideo.cn ,REJECT
+HOST, ggc.cmvideo.cn ,REJECT
+HOST, ggic03.miguvideo.com ,REJECT
+HOST, ggmk.miguvideo.com ,REJECT
+HOST, ggv.cmvideo.cn ,REJECT
+HOST, ggx.cmvideo.cn ,REJECT
+HOST, ggx03.miguvideo.com ,REJECT
+
+# (N) ,REJECT
+# > NetEase ,REJECT
+HOST-SUFFIX, dsp.youdao.com ,REJECT
+HOST-SUFFIX, union.youdao.com ,REJECT
+HOST, ad.bn.netease.com ,REJECT
+HOST, ad.yixin.im ,REJECT
+HOST, admusicpic.music.126.net ,REJECT
+HOST, g1.163.com ,REJECT
+HOST, gorgon.youdao.com ,REJECT
+HOST, iad.g.163.com ,REJECT
+HOST, iadmat.nosdn.127.net ,REJECT
+HOST, iadmusicmat.music.126.net ,REJECT
+HOST, iadmusicmatvideo.music.126.net ,REJECT
+HOST, impservice.dictapp.youdao.com ,REJECT
+HOST, impservice.youdao.com ,REJECT
+HOST, n.3g.163.com ,REJECT
+HOST, nex.163.com ,REJECT
+HOST, yt-adp.nosdn.127.net ,REJECT
+HOST, yt-adp.ws.126.net ,REJECT
+
+# (P) ,REJECT
+# > PPTV ,REJECT
+HOST, ads.aplus.pptv.com ,REJECT
+HOST, ads.aplusapi.pptv.com ,REJECT
+HOST, asimgs.pplive.cn ,REJECT
+HOST, de.as.pptv.com ,REJECT
+# > Photoable ,REJECT
+HOST, regist.fotoable.com ,REJECT
+HOST, cdn.adapi.fotoable.com ,REJECT
+# > PeanutWiFi ,REJECT
+HOST, adnew.wifi8.com ,REJECT
+HOST, adfile.wifi8.com ,REJECT
+# > PConline ,REJECT
+HOST, ad-analysis.pconline.com.cn ,REJECT
+HOST, iad0ssl.pcauto.com.cn ,REJECT
+HOST, iad0ssl.pconline.com.cn ,REJECT
+HOST, imgad0.pcauto.com.cn ,REJECT
+HOST, imgad0.pconline.com.cn ,REJECT
+HOST, ivy.pchouse.com.cn ,REJECT
+# > Phoenix New Media ,REJECT
+HOST-SUFFIX, deliver.ifeng.com ,REJECT
+HOST, api.newad.ifeng.com ,REJECT
+HOST, ifengad.3g.ifeng.com ,REJECT
+
+# (Q) ,REJECT
+# > 蜻蜓FM ,REJECT
+HOST, ad.qingting.fm ,REJECT
+HOST, adlaunch.qingting.fm ,REJECT
+HOST, ad-cdn.qingting.fm ,REJECT
+# > OPPO ,REJECT
+HOST-SUFFIX, ads.oppomobile.com ,REJECT
+HOST, adsfs.oppomobile.com ,REJECT
+
+# (S) ,REJECT
+# > 新浪 ,REJECT
+HOST-SUFFIX, alitui.weibo.com ,REJECT
+HOST-SUFFIX, beacon.sina.com.cn ,REJECT
+HOST, adimg.uve.weibo.com ,REJECT
+HOST, adimg.vue.weibo.com ,REJECT
+HOST, u1.img.mobile.sina.cn ,REJECT
+HOST, sax.sina.com.cn ,REJECT
+HOST, saxs.sina.com.cn ,REJECT
+HOST, saxn.sina.com.cn ,REJECT
+# > 搜狐 ,REJECT
+HOST-SUFFIX, ad.sohu.com ,REJECT
+HOST-SUFFIX, ads.sohu.com ,REJECT
+HOST-SUFFIX, aty.sohu.com ,REJECT
+HOST, hui.sohu.com ,REJECT
+HOST-SUFFIX, pv.sohu.com ,REJECT
+# > Snapchat ,REJECT
+HOST, ads.snapchat.com ,REJECT
+HOST, adsapi.snapchat.com ,REJECT
+# > Skyworth ,REJECT
+HOST-SUFFIX, hoisin.coocaa.com ,REJECT
+HOST-SUFFIX, hoisin.coocaatv.com ,REJECT
+HOST, data-hoisin.coocaa.com ,REJECT
+
+# (T) ,REJECT
+# -- 腾讯 ,REJECT
+HOST-SUFFIX, e.qq.com ,REJECT
+HOST-SUFFIX, gdt.qq.com ,REJECT
+HOST-SUFFIX, l.qq.com ,REJECT
+HOST, adsmind.apdcdn.tc.qq.com ,REJECT
+HOST, adsmind.gdtimg.com ,REJECT
+HOST, adsmind.tc.qq.com ,REJECT
+HOST, adsmind.ugdtimg.com ,REJECT
+HOST, livep.l.t002.ottcn.com ,REJECT
+HOST, pgdt.gtimg.cn ,REJECT
+HOST, pgdt.gtimg.com ,REJECT
+HOST, pgdt.ugdtimg.com ,REJECT
+HOST, splashqqlive.gtimg.com ,REJECT
+HOST, wa.gtimg.com ,REJECT
+# HOST, wxsnsdy.wxs.qq.com ,REJECT
+# HOST, wxsnsdythumb.wxs.qq.com ,REJECT
+# > QQ音乐 ,REJECT
+HOST, ad.tencentmusic.com ,REJECT
+HOST, adstats.tencentmusic.com ,REJECT
+HOST, adserviceretry.kugou.com ,REJECT
+HOST, ads.service.kugou.com ,REJECT
+HOST, adsfile.bssdlbig.kugou.com ,REJECT
+HOST, g.koowo.com ,REJECT
+HOST, kgmobilestat.kugou.com ,REJECT
+HOST, kgmobilestatbak.kugou.com ,REJECT
+HOST, mobilelog.kugou.com ,REJECT
+HOST, mobilead.kuwo.cn ,REJECT
+HOST, rich.kuwo.cn ,REJECT
+HOST, tmead.y.qq.com ,REJECT
+HOST, splashimgbssdl.yun.kugou.com ,REJECT
+HOST, adsfilebssdlbig.tx.kugou.com ,REJECT
+
+# > 同花顺 ,REJECT
+HOST, adm.10jqka.com.cn ,REJECT
+HOST, stat.10jqka.com.cn ,REJECT
+# > The Paper ,REJECT
+HOST, admonitor.thepaper.cn ,REJECT
+HOST, adpai.thepaper.cn ,REJECT
+HOST, imgadpai.thepaper.cn ,REJECT
+# > Thunder ,REJECT
+HOST, adsp.xunlei.com ,REJECT
+HOST, etl.xlmc.sandai.net ,REJECT
+
+# (V) ,REJECT
+# > VariFlight ,REJECT
+HOST, adv-adlog.variflight.com ,REJECT
+HOST, adv-ads.variflight.com ,REJECT
+HOST, app-ad.variflight.com ,REJECT
+# > vivo ,REJECT
+HOST, adlog.vivo.com.cn ,REJECT
+HOST, adreq.vivo.com.cn ,REJECT
+HOST, ads-marketing-vivofs.vivo.com.cn ,REJECT
+HOST, adsdk.vivo.com.cn ,REJECT
+HOST, adsstatic.vivo.com.cn ,REJECT
+HOST, adxlog.vivo.com.cn ,REJECT
+HOST, vcardsdkservice.vivo.com.cn ,REJECT
+HOST-KEYWORD,stsdk.vivo.com.cn ,REJECT
+HOST-KEYWORD,stsdk.vivoglobal.com ,REJECT
+# > Viber ,REJECT
+HOST, ads.viber.com ,REJECT
+HOST, ads-d.viber.com ,REJECT
+HOST, ads.aws.viber.com ,REJECT
+
+# (X) ,REJECT
+# > Ximalaya ,REJECT
+HOST, ad.ximalaya.com ,REJECT
+HOST, adbs.ximalaya.com ,REJECT
+HOST, adse.ximalaya.com ,REJECT
+HOST, adse.wsa.ximalaya.com ,REJECT
+HOST, adbehavior.wsa.ximalaya.com ,REJECT
+HOST, adbehavior.ximalaya.com ,REJECT
+HOST, adsebs.ximalaya.com ,REJECT
+HOST, adwbs.ximalaya.com ,REJECT
+# > 小红书 ,REJECT
+HOST, ads-img-qc.xhscdn.com ,REJECT
+HOST, ads-video-al.xhscdn.com ,REJECT
+HOST, ads-video-qc.xhscdn.com ,REJECT
+HOST, t-ads.xiaohongshu.com ,REJECT
+
+# (Y) ,REJECT
+# > 雅虎 ,REJECT
+HOST-SUFFIX, adserver.yahoo.com ,REJECT
+HOST-SUFFIX, adspecs.yahoo.com ,REJECT
+HOST-SUFFIX, advertising.yahoo.com ,REJECT
+HOST-SUFFIX, gemini.yahoo.com ,REJECT
+HOST, admarketing.yahoo.net ,REJECT
+HOST, ads.auctions.yahoo.com ,REJECT
+HOST, ads.finance.yahoo.com ,REJECT
+HOST, ads.yahoo.com ,REJECT
+HOST, ads.yahoo.de ,REJECT
+
+# (Z) ,REJECT
+# > 知乎 ,REJECT
+USER-AGENT,AVOS* ,REJECT
+HOST, appcloud2.in.zhihu.com ,REJECT
+HOST, mqtt.zhihu.com ,REJECT
+HOST, sugar.zhihu.com ,REJECT
+HOST, 118.89.204.198 ,REJECT
+IP-CIDR,118.89.204.198/32,no-resolve ,REJECT
+IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/128,no-resolve ,REJECT
+# > 中关村 ,REJECT
+HOST, apppv.zol.com.cn ,REJECT
+HOST, pvnapp.zol.com.cn
