@@ -24,7 +24,7 @@ user-agent,ting_en,direct
 user-agent,WebTorrent*,direct
 user-agent,WeChat*,direct
 # GeoIP CN段 直联
-;GEOIP,CN,direct
+# GEOIP,CN,direct
 
 
 # IP类工具 直联
