@@ -195,7 +195,7 @@ async function getNotice() {
 !(async () => {
     //没有设置变量,执行Cookie获取
     if (typeof $request != "undefined") {
-        setTimeout("getCookie()","10000")
+        setTimeout("getCookie()","10000");
         await getCookie();
         return;
     }
