@@ -2,11 +2,11 @@
     "name":"Json_Color+", 
     "description":"By JasonCedric", 
     "icons":[
-            {"name":"Mingxiang", "url":"https://raw.gitmirror.com/JasonCedric/Quan_X/main/icon/Mingxiang.png"},
+            {"name":"Media", "url":"https://raw.gitmirror.com/JasonCedric/Quan_X/main/icon/media.png"},
+            {"name":"Medi", "url":"https://raw.gitmirror.com/JasonCedric/Quan_X/main/icon/meidi.png"},
             {"name":"115", "url":"https://raw.gitmirror.com/JasonCedric/Quan_X/main/icon/115.png"},
             {"name":"95", "url":"https://raw.gitmirror.com/JasonCedric/Quan_X/main/icon/95.png"},
             {"name":"AAEX", "url":"https://raw.gitmirror.com/JasonCedric/Quan_X/main/icon/AAEX.png"},
-            {"name":"AAT", "url":"https://raw.gitmirror.com/JasonCedric/Quan_X/main/icon/AAT.png"},
             {"name":"AEX", "url":"https://raw.gitmirror.com/JasonCedric/Quan_X/main/icon/AEX.png"},
             {"name":"ASN", "url":"https://raw.gitmirror.com/JasonCedric/Quan_X/main/icon/ASN.png"},
             {"name":"AU", "url":"https://raw.gitmirror.com/JasonCedric/Quan_X/main/icon/AU.png"},
@@ -158,5 +158,7 @@
             {"name":"JD", "url":"https://raw.gitmirror.com/JasonCedric/Quan_X/main/icon/JD.png"},
             {"name":"Airplane", "url":"https://raw.gitmirror.com/JasonCedric/Quan_X/main/icon/Airplane.png"},
             {"name":"Zhihu", "url":"https://raw.gitmirror.com/JasonCedric/Quan_X/main/icon/zhihu.png"},
+            {"name":"Mingxiang", "url":"https://raw.gitmirror.com/JasonCedric/Quan_X/main/icon/Mingxiang.png"},
+            {"name":"AAT", "url":"https://raw.gitmirror.com/JasonCedric/Quan_X/main/icon/AAT.png"},
             ]
 }
