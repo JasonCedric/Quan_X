@@ -2,6 +2,7 @@
     "name":"Json_Color+", 
     "description":"By JasonCedric", 
     "icons":[
+            {"name":"Love", "url":"https://raw.gitmirror.com/JasonCedric/Quan_X/main/icon/love.png"},
             {"name":"Media", "url":"https://raw.gitmirror.com/JasonCedric/Quan_X/main/icon/media.png"},
             {"name":"Medi", "url":"https://raw.gitmirror.com/JasonCedric/Quan_X/main/icon/meidi.png"},
             {"name":"Cloudflare", "url":"https://raw.gitmirror.com/JasonCedric/Quan_X/main/icon/cloudflare.png"},
