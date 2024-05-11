@@ -8,7 +8,7 @@
 2023.10.23 更换域名，移除登录接口
 2024.01.04 重构脚本，减少等待时间，修复由于签到积分变而导致获取nonce失败的问题
 
-网址入口：https://ios.songshuyouxi.com
+网址入口：https://iios.songshuyouxi.com
 
 脚本兼容：Surge、QuantumultX、Loon、Shadowrocket、Node.js
 只测试过loon、QuantumultX和青龙，其它环境请自行尝试】
@@ -34,7 +34,7 @@ $.notifyMsg = [];
 //bark推送
 $.barkKey = ($.isNode() ? process.env["bark_key"] : $.getdata("bark_key")) || '';
 //域名
-let host = 'ios.songshuyouxi.com';
+let host = 'iios.songshuyouxi.com';
 //---------------------- 自定义变量区域 -----------------------------------
 
 //脚本入口函数main()
