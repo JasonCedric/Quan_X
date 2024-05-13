@@ -38,7 +38,7 @@ $.barkKey = ($.isNode() ? process.env["bark_key"] : $.getdata("bark_key")) || ''
 
 //脚本入口函数main()
 async function main() {
-    await getNotice();
+    //await getNotice();
     console.log('\n================== 任务 ==================\n');
     for (let user of userList) {
         try {
