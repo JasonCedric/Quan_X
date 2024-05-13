@@ -1,57 +1,26 @@
 
 /*
-脚本名称：阿里云盘任务 感谢zqzess、lowking、leiyiyan、mounuo提供的巨大帮助
-脚本作者：@Sliverkiss
-更新日期：2024-01-20 13:13:56
-
-2024.01.20 
-- 修复时光间文件只上传到本设备，导致无法领取所有奖励的问题
-- 增加垃圾回收机制,上传的空文件将在第二天清除
-- 优化代码逻辑，运行错误将不再抛出，改为在控制台打印,避免由于错误中断脚本运行
-
-------------------------------------------
-脚本兼容：Surge、QuantumultX、Loon、Shadowrocket、Node.js
-只测试过QuantumultX，其它环境请自行尝试
-
-*************************
-【 签到脚本使用教程 】:
-*************************
-单账号：
-1.将获取ck脚本拉取到本地
-2.打开阿里云盘，若提示获取ck成功，则可以使用该脚本
-3.获取成功后，关闭获取ck脚本，避免产生不必要的mitm
-
-多账号（自行摸索）：
-1.将获取ck脚本拉取到本地
-2.打开阿里云盘，获取ck数据
-3.打开boxjs->我的，在数据键输入ADriveCheckIn->点击VIEW查看数据，将查询到的数据复制出来，并清空数据内容->点击保存
-4.在阿里云盘不退出登录的情况下切换账号(如卸载重装、还原备份)，重复2~3步骤，直到获取完所有账号ck数据
-5.打开boxjs->我的，在数据键输入ADriveCheckIn->点击VIEW查看数据，将复制出来的各账号ck数据用@拼接，填写到数据内容,并点击保存
-6.在5步骤中的数据内容格式为:账号1ck数据@账号2ck数据
-7.关闭获取ck脚本，避免产生不必要的mitm
-
 QuantumultX配置如下：
 
 [task_local]
 0 7,11,17 * * * https://gist.githubusercontent.com/Sliverkiss/33800a98dcd029ba09f8b6fc6f0f5162/raw/aliyun.js, tag=阿里云签到, img-url=https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/AliYunDrive.png, enabled=true
 
 [rewrite_local]
-^https:\/\/(auth|aliyundrive)\.alipan\.com\/v2\/account\/token url script-request-body https://raw.githubusercontent.com/zqzess/rule_for_quantumultX/master/js/Mine/aDriveCheckIn/aDriveCheckIn.js
+^https:\/\/(auth|aliyundrive)\.alipan\.com\/v2\/account\/token url script-request-body https://gist.githubusercontent.com/Sliverkiss/33800a98dcd029ba09f8b6fc6f0f5162/raw/aliyun.js
 
 [MITM]
 hostname = auth.alipan.com,auth.aliyundrive.com
-------------------------------------------
 */
 
 
 // env.js 全局
-const $ = new Env("☁️阿里云盘签到");
-const ckName = "ADriveCheckIn";
+const $ = new Env("阿里云盘任务");
+const ckName = "aliyun_data";
 //-------------------- 一般不动变量区域 -------------------------------------
 const Notify = 1;//0为关闭通知,1为打开通知,默认为1
 const notify = $.isNode() ? require('./sendNotify') : '';
 let envSplitor = ["@"]; //多账号分隔符
-let userCookie = ($.isNode() ? process.env[ckName] : $.getdata(ckName)) || '';
+let userCookie = ($.isNode() ? process.env[ckName] : $.getdata(ckName)) || [];
 let userList = [];
 let userIdx = 0;
 let userCount = 0;
@@ -59,10 +28,6 @@ let userCount = 0;
 $.is_debug = ($.isNode() ? process.env.IS_DEDUG : $.getdata('is_debug')) || 'false';
 //是否自动领取奖励
 $.is_reward = ($.isNode() ? process.env.IS_DEDUG : $.getdata('aliyun_reward')) || 'true';
-//垃圾回收期限
-$.date = ($.isNode() ? process.env.IS_DEDUG : $.getdata('aliyun_date')) || '';
-//垃圾回收区
-$.cache = ($.isNode() ? process.env.IS_DEDUG : $.getjson('aliyun_cache')) || {};
 // 为通知准备的空数组
 $.notifyMsg = [];
 // 上传空文件列表
@@ -73,37 +38,48 @@ $.barkKey = ($.isNode() ? process.env["bark_key"] : $.getdata("bark_key")) || ''
 
 //脚本入口函数main()
 async function main() {
-    await getNotice()
+    await getNotice();
     console.log('\n================== 任务 ==================\n');
     for (let user of userList) {
-        console.log(`🔷账号${user.index} >> Start work`)
-        console.log(`随机延迟${user.getRandomTime()}ms`);
-        //刷新token
-        await user.getAuthorizationKey();
-        if (user.ckStatus) {
-            //签到
-            let { signInCount } = await user.signCheckin();
-            //垃圾回收
-            await user.FullGC();
-            //补签卡任务
-            await user.finishCardTask();
-            //随机休眠
-            await $.wait(user.getRandomTime());
-            //完成时光间备份任务
-            await user.finishDeviceRoomTask();
-            //领取好运瓶
-            await user.bottleTask();
-            //获取签到信息
-            await user.getSignInfo();
-            //随机休眠
-            await $.wait(user.getRandomTime());
-            //领取签到/备份奖励
-            await user.getAllReward(signInCount);
-            //刷新垃圾回收区
-            await user.flashCacheGC();
-        } else {
-            //将ck过期消息存入消息数组
-            $.notifyMsg.push(`❌账号${user.index} >> Check ck error!`)
+        try {
+            console.log(`🔷账号${user.ADrivreInfo.name} >> Start work`)
+            console.log(`随机延迟${user.getRandomTime()}ms`);
+            //刷新token
+            await user.getAuthorizationKey();
+            if (user.ckStatus) {
+                //签到
+                let { signInCount } = await user.signCheckin();
+                //周五会员日
+                await user.vipFriday();
+                //补签卡任务
+                await user.finishCardTask();
+                //刷新数据
+                await user.getHomeWidgets();
+                //随机休眠
+                await $.wait(user.getRandomTime());
+                //完成时光间备份任务
+                await user.finishDeviceRoomTask();
+                //完成备份奖励任务
+                await user.uploadBackupTask();
+                //领取好运瓶
+                await user.bottleTask();
+                //随机休眠
+                await $.wait(user.getRandomTime());
+                //领取签到/备份奖励
+                await user.getAllReward(signInCount);
+            } else {
+                //将ck过期消息存入消息数组
+                $.notifyMsg.push(`❌ 账号${user.ADrivreInfo.name} >> Check ck error!`)
+            }
+        } catch (e) {
+            $.notifyMsg.push(`❌账号${user.ADrivreInfo.name} >> ${e}`);
+        } finally {
+            //任务分段通知
+            $.name = `阿里云盘任务(${user.index}/${userCount})`;
+            $.barkKey
+                ? await BarkNotify($, $.barkKey, $.name, $.notifyMsg.join('\n')) //推送Bark通知
+                : await SendMsg($.notifyMsg.join('\n'));//带上总结推送通知
+            $.notifyMsg = [];
         }
     }
 }
@@ -111,7 +87,7 @@ async function main() {
 class UserInfo {
     constructor(str) {
         this.index = ++userIdx;
-        this.ADrivreInfo = JSON.parse(str);
+        this.ADrivreInfo = str;
         this.ckStatus = true;
         this.bottleStatus = true;
     }
@@ -131,53 +107,6 @@ class UserInfo {
                 .catch((err) => reject(err));
         });
     };
-    //垃圾回收机制
-    async FullGC() {
-        try {
-            //获取当前天数
-            let isGone = $.date ? diffDate($.date, new Date().getTime()) : 0;
-            if ((Array.isArray($.cache[$.device_id])
-                && $.cache[$.device_id].length > 0)
-                && isGone > 0) {
-                $.log(`⏰ 开始执行垃圾回收任务\n`)
-                //批量删除上传空文件
-                await this.removeFiles($.cache[$.device_id]);
-                $.cache[$.device_id] = [];
-                //清空垃圾回收区
-                $.setjson($.cache[$.device_id], 'aliyun_cache');
-            } else {
-                isGone > 0
-                    ? $.log(`♻️垃圾回收区中暂无需要清理的文件 => 跳过垃圾回收任务`)
-                    : $.log(`♻️未到达垃圾回收期限=> 跳过垃圾回收任务`)
-            }
-        } catch (e) {
-            $.log(`❌垃圾回收失败！原因为:${e}`)
-        }
-    }
-    //刷新垃圾回收区
-    async flashCacheGC() {
-        try {
-            if (Array.isArray($.uploadFileList) && $.uploadFileList.length > 0) {
-                if (Array.isArray($.cache[$.device_id]) && $.cache[$.device_id].length > 0) {
-                    //压入垃圾回收区
-                    $.cache[$.device_id] = [...$.cache[$.device_id], ...$.uploadFileList];
-                } else {
-                    //创建垃圾回收区
-                    $.cache[$.device_id] = $.uploadFileList;
-                }
-                //缓存垃圾回收区
-                $.setjson($.cache, 'aliyun_cache');
-                //刷新垃圾回收期限
-                $.setjson(new Date().getTime(), 'aliyun_date');
-                //打印通知
-                $.log(`♻️将上传文件缓存到垃圾回收区成功！`);
-            } else {
-                return $.log(`♻️暂无可回收垃圾`);
-            }
-        } catch (e) {
-            $.log(`❌刷新垃圾回收区失败！原因为:${e}`)
-        }
-    }
     //一键领取签到/备份奖励
     async getAllReward(signInCount) {
         try {
@@ -226,22 +155,24 @@ class UserInfo {
                 })
             };
             //post方法
-            let { avatar, nick_name, device_id, refresh_token, access_token } = await this.Request(options);
+            let res = await this.Request(options);
+            debug(res);
+            let { avatar, nick_name, device_id, refresh_token, access_token } = res;
             //缓存用户信息(avatar=>头像，nick_name=>用户名)
-            $.avatar = avatar;
+            //$.avatar = avatar;
             $.nick_name = nick_name;
             $.device_id = device_id;
             //获取accessKey鉴权
             let accessKey = 'Bearer ' + access_token;
             debug(accessKey, "鉴权")
             this.authorization = accessKey;
-            this.ADrivreInfo.refresh_token_body.refresh_token = refresh_token;
-            this.ADrivreInfo.refresh_token = refresh_token;
+            let index = userCookie.findIndex(e => (e.name == nick_name && e.device_id == device_id));
+            userCookie[index].refresh_token = refresh_token;
             //刷新token
-            if ($.setjson(this.ADrivreInfo, ckName)) {
-                $.log('刷新阿里网盘refresh_token成功 🎉')
+            if ($.setjson(userCookie, ckName)) {
+                $.log(`${nick_name}刷新阿里网盘refresh_token成功 🎉`)
             } else {
-                DoubleLog('刷新阿里网盘refresh_token失败‼️', '', '')
+                DoubleLog(`${nick_name}刷新阿里网盘refresh_token失败‼️`, '', '')
                 this.ckStatus = false;
             }
             //accessKey
@@ -276,19 +207,17 @@ class UserInfo {
             debug(rewards, "签到信息");
             //打印
             if (rewards.length > 0) {
-                $.log(`签到天数:${signInCount}=> ${subtitle}`)
-                DoubleLog(`用户名: ${$.nick_name} => 第${signInCount}天`)
-                DoubleLog(`自动领取: ${$.is_reward == 'false' ? '未开启 => 月底一键清空' : '已开启 => 每日自动领取'}`)
+                $.log(`签到天数:${signInCount} => ${subtitle}`)
+                DoubleLog(`用户: ${$.nick_name}`)
+                //DoubleLog(`自动领取: ${$.is_reward == 'false' ? '月底一键清空' : '每日自动领取'}`)
                 //今日奖励详情
                 $.signReward = rewards[0].name;
                 $.backUpReward = rewards[1].name;
                 $.log(`\n查询签到日历 => 第${signInCount}天可领取奖励如下:\n签到奖励: ${$.signReward}\n备份奖励: ${$.backUpReward}\n`)
-                $.log(`执行签到任务 => 已完成✅\n`);
+                $.log(`✅ 已完成执行签到任务\n`);
             }
-            //今日是否已签到
-            $.signMsg = (isSignIn ? `🎉${$.nick_name}签到成功!` : `️⚠️今天已经签到过了`) || '';
             //打印通知
-            DoubleLog(`签到: ${$.signReward}`);
+            DoubleLog(`签到: ${(isSignIn ? `签到成功·第${signInCount}天` : `今日已签到`)}｜${$.is_reward == 'false' ? '月底清空' : '每日领取'}`);
             return { signInCount };
         } catch (e) {
             $.log(`❌查询签到日历失败！原因为:${e}`)
@@ -302,7 +231,7 @@ class UserInfo {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: this.authorization,
-                    'x-device-id': this.ADrivreInfo.headers['x-device-id'],
+                    'x-device-id': this.ADrivreInfo.device_id,
                 },
                 body: JSON.stringify({}),
             };
@@ -311,6 +240,89 @@ class UserInfo {
             debug(res, "获取签到信息");
         } catch (e) {
             $.log(`❌获取签到信息失败！原因为:${e}`)
+        }
+    }
+    //周五会员日任务
+    async vipFriday() {
+        try {
+            $.log(`⏰ 开始执行周五会员日任务\n`);
+            if (!isTodayFriday()) return $.log(`❌ 周五会员日:未到达指定时间 => 跳过执行任务`);
+            if (await this.getVipInfo()) {
+                await this.getVipReward();
+            } else {
+                $.log("❌ 周五会员日:领取奖励失败 => 当前用户并非会员\n");
+                $.notifyMsg.push(`会员: 失败,当前用户并非会员`)
+            }
+        } catch (e) {
+            $.log(`❌周五会员日任务失败！原因为:${e}`)
+        }
+    }
+    //获取会员信息
+    async getVipInfo() {
+        try {
+            const options = {
+                url: `https://member.aliyundrive.com/v2/activity/vip_day_info`,
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: this.authorization,
+                    'x-device-id': this.ADrivreInfo.device_id,
+                },
+                body: JSON.stringify({}),
+            };
+            //post方法
+            let res = await this.Request(options);
+            debug(res, "获取会员信息");
+            return res?.result?.isVip;
+        } catch (e) {
+            $.log(`❌获取签到信息失败！原因为:${e}`)
+        }
+    }
+    //获取会员奖励
+    async getVipReward() {
+        try {
+            const options = {
+                url: `https://member.aliyundrive.com/v2/activity/vip_day_reward`,
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: this.authorization,
+                    'x-device-id': this.ADrivreInfo.device_id,
+                },
+                body: JSON.stringify({}),
+            };
+            //post方法
+            let res = await this.Request(options);
+            debug(res, "获取会员奖励");
+            $.log(`周五会员日 => ${res?.message || "领取本周五奖励成功"}\n`)
+            $.notifyMsg.push(`会员: ${res?.message || "领取奖励成功!"}`)
+        } catch (e) {
+            $.log(`❌获取签到信息失败！原因为:${e}`)
+        }
+    }
+    //刷新阿里云主界面数据
+    async getHomeWidgets() {
+        try {
+            const options = {
+                url: `https://api.alipan.com/apps/v2/users/home/widgets`,
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: this.authorization,
+                    'x-device-id': this.ADrivreInfo.device_id,
+                },
+                body: JSON.stringify({}),
+            };
+            //post方法
+            let res = await this.Request(options);
+            $.log(`刷新阿里云界面信息`)
+            debug(res, "获取home信息");
+        } catch (e) {
+            $.log(`❌获取home信息失败！原因为:${e}`)
+        }
+    }
+    //备份任务 自动上传10个文件
+    async uploadBackupTask() {
+        this.albumsId = await this.getAlbumsInfo();
+        for (let i = 1; i <= 10; i++) {
+            await this.uploadFileToAlbums(this.albumsId);
         }
     }
     // 领取签到奖励
@@ -361,7 +373,7 @@ class UserInfo {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: this.authorization,
-                    'x-device-id': this.ADrivreInfo.headers['x-device-id'],
+                    'x-device-id': this.ADrivreInfo.device_id,
                 },
                 body: JSON.stringify({})
             };
@@ -379,7 +391,7 @@ class UserInfo {
     }
 
     // 上传文件到相册/完成照片备份任务
-    async uploadFileToAlbums(albumsId, deviceId = this.ADrivreInfo.headers['x-device-id'], deviceModel = 'iPhone 13') {
+    async uploadFileToAlbums(albumsId, deviceId = this.ADrivreInfo.device_id, deviceModel = 'iPhone 13') {
         try {
             //获取相册信息
             //    this.albumsId = await this.getAlbumsInfo();
@@ -441,7 +453,7 @@ class UserInfo {
                 },
                 body: JSON.stringify({
                     "deviceType": "iOS",
-                    "deviceId": this.ADrivreInfo.headers['x-device-id'],
+                    "deviceId": this.ADrivreInfo.device_id,
                     "driveId": this.albumsId,
                     "backupView": "album",
                     "parentFileId": "root",
@@ -605,26 +617,36 @@ class UserInfo {
             this.albumsId = await this.getAlbumsInfo();
             //获取设备列表
             let deviceList = await this.getDeviceList();
+            //获取时空间可领取奖励列表
+            let items = await this.getListDevice();
             //debug(deviceList);
             $.log(`⏰ 开始执行时光设备间备份任务\n`);
             let { rewardCountToday, rewardTotalSize } = await this.getDeviceRoomInfo();
             if (rewardCountToday >= 5) {
-                DoubleLog(`时光间: 总共领取${rewardTotalSize}MB,今日领取次数：${rewardCountToday}`);
+                DoubleLog(`时光: 今日领取奖励已达到上限`);
                 return $.log(`今日时光间领取奖励已达到上限，跳过任务\n`)
             }
             for (let e of deviceList) {
-                //每个设备上传两次空文件
-                for (let i = 1; i <= 2; i++) {
-                    await this.uploadFileToAlbums(this.albumsId, e.deviceId, e.deviceModel);
-                    $.log(`${e.deviceModel} 完成第${i}次上传任务`);
+                if (items) {
+                    let deviceItem = items.find(u => u.id == e.deviceId) ?? [];
+                    //若设备无可领取奖励，执行上传任务
+                    if (!deviceItem.canCollectEnergy) {
+                        //每个设备上传两次空文件
+                        for (let i = 1; i <= 2; i++) {
+                            await this.uploadFileToAlbums(this.albumsId, e.deviceId, e.deviceModel);
+                            $.log(`${e.deviceModel} 完成第${i}次上传任务`);
+                        }
+                    }
+                    //随机休眠
+                    await $.wait(this.getRandomTime());
+                    //领取时光间奖励
+                    await this.getEnergyReword(e);
+                } else {
+                    $.log(`❌获取时空间设备列表失败！`);
                 }
-                //随机休眠
-                await $.wait(this.getRandomTime());
-                //领取时光间奖励
-                await this.getEnergyReword(e);
             }
             let res = await this.getDeviceRoomInfo();
-            DoubleLog(`时光间: 总共领取${res.rewardTotalSize}MB,今日领取次数：${res.rewardCountToday}`);
+            DoubleLog(`时光: 领取(${res?.rewardCountToday}/5)次，获得${((res.rewardTotalSize - rewardTotalSize) / 1024).toFixed(2)}G`);
         } catch (e) {
             $.log(`❌完成时光间备份任务失败！原因为:${e}`)
         }
@@ -645,6 +667,27 @@ class UserInfo {
             return { rewardTotalSize: result?.rewardTotalSize, rewardCountToday: result?.rewardCountToday };
         } catch (e) {
             $.log(`❌获取时光间信息失败！原因为:${e}`)
+        }
+    }
+    //获取时空间可领取奖励设备列表
+    async getListDevice() {
+        try {
+            const options = {
+                url: `https://user.aliyundrive.com/v1/deviceRoom/listDevice`,
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: this.authorization,
+                },
+                body: JSON.stringify({})
+            };
+            //post方法
+            let { items } = await this.Request(options) ?? [];
+            if (Array.isArray(items) && items.length > 0) {
+                return items;
+            }
+            return false;
+        } catch (e) {
+            $.log(`❌查询是空间奖励列表失败！原因为:${e}`)
         }
     }
     //领取时光间奖励
@@ -671,9 +714,10 @@ class UserInfo {
     //执行好运瓶任务
     async bottleTask() {
         $.log(`⏰ 开始执行好运瓶任务\n`);
+        let index = 1;
         do {
             await this.bottleFish();
-        } while (this.bottleStatus);
+        } while (this.bottleStatus && index++ <= 5);
     }
     //领取好运瓶
     async bottleFish() {
@@ -690,13 +734,14 @@ class UserInfo {
             //{"code":"TooManyRequests","message":"TooManyRequests","requestId":"0a0070d417055857275284776ea12f","display_message":"今天接瓶子次数已用完，明天再来~"}
             let { bottleName, display_message } = await this.Request(options);
             if (display_message) {
-                DoubleLog(`好运瓶: ${display_message}`);
+                DoubleLog(`好运: 今日接瓶子次数已用完`);
                 this.bottleStatus = false;
             } else {
                 $.log(`好运瓶[${bottleName}]领取成功！\n`)
             }
         } catch (e) {
             $.log(`❌领取好运瓶失败！原因为:${e}`)
+            this.bottleStatus = false;
         }
     }
     //完成补签卡任务
@@ -813,7 +858,7 @@ class UserInfo {
             };
             let res = await this.Request(options);
             debug(res, "领取补签卡任务奖励");
-            DoubleLog(`补签卡: ` + (res.message || "任务已完成，成功领取1张补签卡"))
+            DoubleLog(`补签: ` + (res.message || "任务已完成，成功领取1张补签卡"))
             // return res?.result;
         } catch (e) {
             $.log(`❌领取补签卡失败！原因为:${e}`)
@@ -825,27 +870,86 @@ class UserInfo {
 
 //获取Cookie
 async function getCookie() {
-
-}
-
-
-async function getNotice() {
-    try {
-        const urls = ["https://cdn.jsdelivr.net/gh/Sliverkiss/GoodNight@main/notice.json", "https://cdn.jsdelivr.net/gh/Sliverkiss/GoodNight@main/tip.json"];
-        for (const url of urls) {
-            const options = {
-                url,
-                headers: {
-                    "User-Agent": ""
-                },
+    if ($request && $request.method != 'OPTIONS') {
+        try {
+            const body = JSON.parse($request.body);
+            let refresh_token = body.refresh_token;
+            //不存在token时
+            if (!refresh_token) {
+                return $.msg($.name, "", "❌获取token失败！请稍后再试～")
             }
-            const result = await httpRequest(options);
-            if (result) console.log(result.notice);
+            //获取响应体
+            let { nick_name, avatar, device_id } = await getRespBody(refresh_token) ?? {};
+            //是否存在多账号数据
+            if ((Array.isArray(userCookie)) && userCookie.length == 0) {
+                userCookie.push({ "name": nick_name, "refresh_token": refresh_token, "device_id": device_id });
+                $.setjson(userCookie, ckName);
+                $.msg($.name, `🎉${nick_name}获取token成功!`, "", { 'media-url': avatar });
+            } else {
+                userCookie = eval('(' + userCookie + ')');
+                let index = userCookie.findIndex(e => (e.name == nick_name && e.device_id == device_id));
+                if (userCookie[index]) {
+                    userCookie[index].refresh_token = refresh_token;
+                    $.setjson(userCookie, ckName);
+                    $.msg($.name, `🎉${nick_name}更新token成功!`, "", { 'media-url': avatar });
+                } else {
+                    userCookie.push({ "name": nick_name, "refresh_token": refresh_token, "device_id": device_id });
+                    $.setjson(userCookie, ckName);
+                    $.msg($.name, `🎉${nick_name}获取token成功!`, ``, { 'media-url': avatar });
+                }
+            }
+        } catch (e) {
+            $.msg($.name, "❌获取阿里云盘refresh_token失败！请检查boxjs格式是否正确", e)
         }
-    } catch (e) {
-        console.log(e);
     }
 }
+//判断今天是否为周五
+function isTodayFriday() {
+    // 创建一个新的 Date 对象表示当前日期和时间
+    const today = new Date();
+    // 检查今天是否为星期五
+    return today.getDay() === 5;
+}
+
+async function getRespBody(refresh_token) {
+    //获取用户名作为标识键
+    const options = {
+        url: `https://auth.aliyundrive.com/v2/account/token`,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            refresh_token: refresh_token,
+            grant_type: 'refresh_token'
+        })
+    };
+    return new Promise(resolve => {
+        $.post(options, async (error, response, data) => {
+            try {
+                let result = JSON.parse(data);
+                resolve(result);
+            } catch (error) {
+                $.log(error);
+                resolve();
+            }
+        });
+    });
+}
+
+//远程通知
+async function getNotice() {
+    const urls = [
+        "https://raw.githubusercontent.com/Sliverkiss/GoodNight/main/notice.json",
+        "https://raw.githubusercontent.com/Sliverkiss/GoodNight/main/tip.json"
+    ];
+    try {
+        const responses = await Promise.all(urls.map(url => httpRequest({ url })));
+        responses.map(result => console.log(result?.notice || "获取通知失败"));
+    } catch (error) {
+        console.log(`❌获取通知时发生错误：${error}`);
+    }
+}
+
 
 //主程序执行入口
 !(async () => {
@@ -861,11 +965,7 @@ async function getNotice() {
     }
 })()
     .catch((e) => $.notifyMsg.push(e.message || e))//捕获登录函数等抛出的异常, 并把原因添加到全局变量(通知)
-    .finally(async () => {
-        if ($.barkKey) { //如果已填写Bark Key
-            await BarkNotify($, $.barkKey, $.name, $.notifyMsg.join('\n')); //推送Bark通知
-        };
-        await SendMsg($.notifyMsg.join('\n'))//带上总结推送通知
+    .finally(() => {
         $.done(); //调用Surge、QX内部特有的函数, 用于退出脚本执行
     });
 
@@ -943,18 +1043,13 @@ function debug(text, title = 'debug') {
 
 //检查变量
 async function checkEnv() {
-    if (userCookie) {
-        let e = envSplitor[0];
-        for (let o of envSplitor)
-            if (userCookie.indexOf(o) > -1) {
-                e = o;
-                break;
-            }
-        for (let n of userCookie.split(e)) n && userList.push(new UserInfo(n));
-        userCount = userList.length;
-    } else {
+    if ((Array.isArray(userCookie)) && userCookie.length == 0) {
         console.log("未找到CK");
         return;
+    } else {
+        userCookie = eval('(' + userCookie + ')');
+        for (let n of userCookie) n && userList.push(new UserInfo(n));
+        userCount = userList.length;
     }
     return console.log(`共找到${userCount}个账号`), true;//true == !0
 }
@@ -972,7 +1067,8 @@ async function SendMsg(message) {
         if ($.isNode()) {
             await notify.sendNotify($.name, message)
         } else {
-            $.msg($.name, $.signMsg, message, { 'media-url': $.avatar })
+            //$.msg($.name, $.signMsg, message, { 'media-url': $.avatar })
+            $.msg($.name, $.signMsg, message)
         }
     } else {
         console.log(message)
