@@ -1,0 +1,23 @@
+#SUBSCRIBED https://whatshub.top/stoverride/caiyun.stoverride
+#!desc=彩云天气pro
+name: CaiYunPro
+desc: 彩云天气pro
+icon: https://raw.githubusercontent.com/jasoncedric/Quan_X/main/icon/caiyun.png
+http:
+  mitm:
+    - "*.caiyunapp.com"
+    - "*.cyapi.com"
+    - "*.cyapi.cn"
+    - "*.caiyunapp.cn"
+  script:
+    - match: ^http[s]?:\/\/biz\.(caiyunapp|cyapi)\.(com|cn)\/v2\/user.*$
+      name: caiyuntianqipro1
+      type: response
+      require-body: true
+      timeout: 10
+  rewrite:
+    - ^https:\/\/ad\.caiyunapp\.com\/ - reject
+script-providers:
+  caiyuntianqipro1:
+    url: https://raw.githubusercontent.com/WeiRen0/Scripts/main/cytq.js
+    interval: 86400
