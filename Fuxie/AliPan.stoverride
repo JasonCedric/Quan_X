@@ -1,0 +1,23 @@
+#!desc=阿里云盘定时签到
+#!homepage=https://whatshub.top
+#!author=lowking
+icon=https://raw.githubusercontent.com/deezertidal/private/main/icons/aliyun.png
+name: aliyunpanqiandao
+desc: 阿里云盘定时签到
+http:
+  mitm:
+    - "auth.aliyundrive.com"
+    - "auth.alipan.com"
+  script:
+    - match: https:\/\/(auth|aliyundrive)\.alipan\.com\/v2\/account\/token
+      name: aliyunpanqiandao1
+      type: response
+      require-body: true
+      timeout: 10
+script-providers:
+  aliyunpanqiandao1:
+    url: https://raw.githubusercontent.com/lowking/Scripts/master/ali/aliYunPanCheckIn.js
+    interval: 86400
+  aliyunpanqiandao2:
+    url: https://raw.githubusercontent.com/lowking/Scripts/master/ali/aliYunPanCheckIn.js
+    interval: 86400
