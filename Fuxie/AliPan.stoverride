@@ -1,9 +1,9 @@
 #!desc=阿里云盘定时签到
 #!homepage=https://whatshub.top
 #!author=lowking
-icon=https://raw.githubusercontent.com/deezertidal/private/main/icons/aliyun.png
-name: aliyunpanqiandao
-desc: 阿里云盘定时签到
+name: "AliPan"
+desc: "阿里云盘定时签到覆写"
+icon="https://raw.githubusercontent.com/deezertidal/private/main/icons/aliyun.png"
 http:
   mitm:
     - "auth.aliyundrive.com"
