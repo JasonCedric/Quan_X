@@ -6,8 +6,13 @@ http:
     - "auth.aliyundrive.com"
     - "auth.alipan.com"
   script:
-    - match: https:\/\/(auth|aliyundrive)\.alipan\.com\/v2\/account\/token
+    - match: https:\/\/auth.aliyundrive.com\/v2\/account\/token
       name: aliyunpanqiandao1
+      type: response
+      require-body: true
+      timeout: 10
+    - match: https:\/\/auth.alipan.com\/v2\/account\/token
+      name: aliyunpanqiandao2
       type: response
       require-body: true
       timeout: 10
