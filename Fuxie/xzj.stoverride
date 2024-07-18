@@ -4,6 +4,7 @@
 icon: https://raw.githubusercontent.com/jasoncedric/Quan_X/main/icon/Bear.png
 name: xiongzhangji
 desc: 熊掌记解锁
+category: 会员解锁
 http:
   mitm:
     - "buy.itunes.apple.com"
