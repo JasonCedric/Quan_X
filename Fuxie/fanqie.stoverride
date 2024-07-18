@@ -2,6 +2,7 @@
 name: fanqiexiaoshuo
 desc: 番茄小说去广告
 icon: https://raw.githubusercontent.com/JasonCedric/Quan_X//main/icon/fanqie.png
+category: 去广告
 http:
   mitm:
     - "*.pangolin-sdk-toutiao"
