@@ -1,0 +1,26 @@
+name: 微信公众号去广告
+desc: 过滤微信公众号广告
+author: RuCu6
+icon: https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/Weixin.png
+#openUrl: https://apps.apple.com/app/id414478124
+#keyword: 功能增强, RuCu6
+#homepage: https://gitlab.com/lodepuly/vpn_tool/-/tree/master/Tool/Loon/Plugin
+category: 去广告
+rules:
+  - DOMAIN,wxsnsdy.wxs.qq.com,REJECT
+  - DOMAIN,wxsnsdythumb.wxs.qq.com,REJECT
+
+http:
+
+  mitm:
+    - "mp.weixin.qq.com"
+    - "*.wxs.qq.com"
+
+  url-rewrite:
+    - >-
+      ^http:\/\/[\d\.]+(:49155)?\/finderpdd\.video\.qq\.com\/\d+\/\d+\/stodownload\? - reject-dict
+# 移除公众号中的推广内容 //mp.weixin.qq.com
+    - >-
+      ^http:\/\/\w+\.wxs\.qq\.com\/\d+\/\d+\/(snscosdownload|snssvpdownload)\/(SH|SZ)\/reserved\/\w+ - reject-dict
+    - >-
+      ^https:\/\/mp\.weixin\.qq\.com\/mp\/(cps_product_info|getappmsgad|jsmonitor|masonryfeed|relatedarticle)\? - reject-dict
