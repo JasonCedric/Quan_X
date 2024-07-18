@@ -1,0 +1,12 @@
+#SUBSCRIBED https://yfamily.vercel.app/stoverride/rates.stoverride
+name: 当前汇率
+desc: 汇率面板
+icon: https://raw.githubusercontent.com/jasoncedric/Quan_X/main/icon/cash.png
+category: 实用工具
+tiles:
+  - name: dangqianhuilv
+    icon: 'yensign.circle'
+    backgroundColor: '#D4AF37'
+script-providers:
+  dangqianhuilv:
+    url: https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/rates.js
