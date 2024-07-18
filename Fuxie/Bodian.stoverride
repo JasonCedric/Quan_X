@@ -4,6 +4,7 @@
 icon: https://raw.githubusercontent.com/deezertidal/private/main/icons/bodian2.png
 name: bodian
 desc: 波点音乐去广告
+category: 去广告
 http:
   mitm:
     - ""
