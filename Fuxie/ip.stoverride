@@ -1,0 +1,12 @@
+#SUBSCRIBED https://yfamily.vercel.app/stoverride/ip-api.stoverride
+name: IP信息
+desc: IP信息面板
+icon: https://raw.githubusercontent.com/jasoncedric/Quan_X/main/icon/ip.png
+category: 实用工具
+tiles:
+  - name: IPxinxi
+    icon: 'mappin.and.ellipse'
+    backgroundColor: '#f50505'
+script-providers:
+  IPxinxi:
+    url: https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/ip-api.js
