@@ -5,6 +5,7 @@
 icon: https://raw.githubusercontent.com/jasoncedric/Quan_X/main/icon/spark.png
 name: Spark Mail
 desc: Spark Mail解锁会员
+category: 会员解锁
 http:
   mitm:
     - "api.revenuecat.com"
