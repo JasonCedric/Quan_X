@@ -6,6 +6,7 @@
 icon: https://raw.githubusercontent.com/jasoncedric/Quan_X/main/icon/youtube.png
 name: YouTubequguanggao
 desc: 支持pip，后台播放
+category: 去广告
 http:
   mitm:
     - "-redirector*.googlevideo.com"
