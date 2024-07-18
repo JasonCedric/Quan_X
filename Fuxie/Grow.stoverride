@@ -4,6 +4,7 @@
 icon: https://raw.githubusercontent.com/deezertidal/private/main/icons/grow.png
 name: Grow
 desc: Grow解锁会员
+category: 会员破解
 http:
   mitm:
     - "api.revenuecat.com"
