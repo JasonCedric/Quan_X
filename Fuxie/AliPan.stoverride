@@ -1,6 +1,7 @@
 name: "Alipan"
 desc: "阿里云盘定时签到覆写"
 icon: "https://raw.githubusercontent.com/deezertidal/private/main/icons/aliyun.png"
+category: 签到
 http:
   mitm:
     - "auth.aliyundrive.com"
