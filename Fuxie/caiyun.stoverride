@@ -3,6 +3,7 @@
 name: CaiYunPro
 desc: 彩云天气pro
 icon: https://raw.githubusercontent.com/jasoncedric/Quan_X/main/icon/caiyun.png
+category: 会员解锁
 http:
   mitm:
     - "*.caiyunapp.com"
