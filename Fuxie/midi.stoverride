@@ -4,6 +4,7 @@
 icon: https://raw.githubusercontent.com/jasoncedric/Quan_X/main/icon/midi.png
 name: midishizhong
 desc: 谜底时钟解锁会员
+category: 会员解锁
 http:
   mitm:
     - "api.revenuecat.com"
