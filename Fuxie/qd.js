@@ -9,10 +9,6 @@ category: 签到
 
 cron:
   script:
-    - name: TiaBa
-      cron: '11 12 * * *'
-      timeout: 60
-
     - name: WeiFeng
       cron: '12 12 * * *'
       timeout: 60
@@ -30,10 +26,6 @@ cron:
       timeout: 60
 
 script-providers:
-  TiaBa:
-    url: https://raw.githubusercontent.com/chavyleung/scripts/master/tieba/tieba.js
-    interval: 86400
-
   WeiFeng:
     url: https://raw.githubusercontent.com/githubdulong/Script/master/weifeng.js
     interval: 86400
