@@ -1,7 +1,7 @@
 name: Task
 desc: 贴吧 威锋 阿里云盘 喜马拉雅
 openUrl: http://boxjs.com/项目地址/
-author: 作者
+#author: test001
 homepage: https://github.com/主页/
 manual: https://github.com/项目地址/
 icon: https://raw.githubusercontent.com/jasoncedric/Quan_X/main/icon/AppleFitness+.png
@@ -14,7 +14,7 @@ cron:
       timeout: 60
 
     - name: AliYunPan
-      cron: '20 12 * * *'
+      cron: '20 0-18/1 * * *'
       timeout: 60
 
     - name: XiMaLaYa
