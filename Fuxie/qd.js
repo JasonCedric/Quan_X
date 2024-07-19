@@ -14,7 +14,7 @@ cron:
       timeout: 60
 
     - name: AliYunPan
-      cron: '20 0-18/1 * * *'
+      cron: '*/20 0-20 * * *'
       timeout: 60
 
     - name: XiMaLaYa
