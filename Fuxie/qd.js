@@ -1,5 +1,5 @@
 name: Task
-desc: 贴吧 威锋 阿里云盘 喜马拉雅
+desc: 威锋 阿里云盘 喜马拉雅自动签到
 openUrl: http://boxjs.com/项目地址/
 #author: test001
 homepage: https://github.com/主页/
