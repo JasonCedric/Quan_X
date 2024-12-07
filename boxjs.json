@@ -1,0 +1,41 @@
+{
+    "id": "jasoncedric.app.sub",
+    "name": "JasonCedric 应用订阅",
+    "author": "@jasoncedric",
+    "icon": "https://avatars.githubusercontent.com/u/JasonCedric",
+    "repo": "https://github.com/JasonCedric/Quan_X",
+    "apps": [
+      {
+        "id": "wsgw",
+        "name": "网上国网",
+        "keys": ["95598_bizrt", "95598_username", "95598_password", "95598_log_debug"],
+        "settings": [
+          {
+            "id": "95598_username",
+            "name": "账号",
+            "val": "",
+            "type": "text",
+            "desc": "网上国网登录账号"
+          },
+          {
+            "id": "95598_password",
+            "name": "密码",
+            "val": "",
+            "type": "text",
+            "desc": "网上国网登录密码"
+          },
+          {
+            "id": "95598_log_debug",
+            "name": "调试日志",
+            "val": false,
+            "type": "boolean",
+            "desc": "开启调试日志"
+          }
+        ],
+        "author": "@jasoncedric",
+        "repo": "https://github.com/JasonCedric/Quan_X",
+        "icons": ["https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/dd/34/c3/dd34c3e8-5c9f-52af-1212-016dd4c9f3c5/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/460x0w.webp", "https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/dd/34/c3/dd34c3e8-5c9f-52af-1212-016dd4c9f3c5/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/460x0w.webp"],
+        "script": "https://raw.githubusercontent.com/JasonCedric/Quan_X/main/wsgw/60days.js"
+      }
+    ]
+  }
