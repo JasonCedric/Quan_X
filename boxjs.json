@@ -65,7 +65,7 @@
             "name": "是否通知全部绑定户号",
             "val": false,
             "type": "boolean",
-            "desc": "修改自Dompling大佬的文件"
+            "desc": "脚本链接：https://raw.githubusercontent.com/JasonCedric/Quan_X/main/wsgw/index2.js"
           },
           {
             "id": "95598_username",
