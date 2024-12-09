@@ -1475,7 +1475,7 @@ async function getElcFee(e) {
   }
 }
 async function getDayElecQuantity(e) {
-  console.log("⏳ 获取日用电量...");
+  console.log("⏳ 获取7日用电量...👇");
   try {
     const o = bindInfo.powerUserList[e],
       [r] = bizrt.userInfo,
@@ -1526,18 +1526,18 @@ async function getDayElecQuantity(e) {
         },
       },
       t = await request(c);
-    log.info("✅ 获取日用电量成功"),
+    log.info("✅ 获取日用电量成功👆"),
       log.debug(jsonStr(t, null, 2)),
       (Global.dayElecQuantity = t);
   } catch (e) {
     return Promise.reject("获取日用电量失败: " + e);
   } finally {
-    console.log("🔚 获取日用电量结束");
+    console.log("🔚 获取日用电量结束 \n");
   }
 }
 
 async function getDay31ElecQuantity(e) {
-  console.log("⏳ 获取日用电量...");
+  console.log("⏳ 获取30天用电量..👇");
   try {
     const o = bindInfo.powerUserList[e],
       [r] = bizrt.userInfo,
@@ -1592,18 +1592,18 @@ async function getDay31ElecQuantity(e) {
         },
       },
       t = await request(c);
-    log.info("✅ 获取日用电量成功"),
+    log.info("✅ 获取30天用电量成功👆"),
       log.debug(jsonStr(t, null, 2)),
       (Global.dayElecQuantity31 = t);
   } catch (e) {
     return Promise.reject("获取日用电量失败: " + e);
   } finally {
-    console.log("🔚 获取日用电量结束");
+    console.log("🔚 获取日用电量结束 \n");
   }
 }
 
 async function getMonthElecQuantity(e) {
-  console.log("⏳ 获取月用电量...");
+  console.log("⏳ 获取月用电量...👇");
   const o = bindInfo.powerUserList[e],
     [r] = bizrt.userInfo;
   try {
@@ -1651,18 +1651,18 @@ async function getMonthElecQuantity(e) {
       },
     };
     const s = await request(e);
-    log.info("✅ 获取月用电量成功"),
+    log.info("✅ 获取月用电量成功👆"),
       log.debug(jsonStr(s, null, 2)),
       (Global.monthElecQuantity = s);
   } catch (e) {
     return Promise.reject(`获取月用电量失败: ${e}`);
   } finally {
-    console.log("🔚 获取月用电量结束");
+    console.log("🔚 获取月用电量结束 \n");
   }
 }
 
 async function getLastYearElecQuantity(e) {
-  console.log("⏳ 获取去年用电量...");
+  console.log("⏳ 获取去年用电量...👇");
   const o = bindInfo.powerUserList[e],
     [r] = bizrt.userInfo;
   try {
@@ -1710,18 +1710,18 @@ async function getLastYearElecQuantity(e) {
       },
     };
     const s = await request(e);
-    log.info("✅ 获取去年电量成功"),
+    log.info("✅ 获取去年电量成功👆"),
       log.debug(jsonStr(s, null, 2)),
       (Global.lastYearElecQuantity = s);
   } catch (e) {
-    return Promise.reject(`获取月用电量失败: ${e}`);
+    return Promise.reject(`获取去年电量失败: ${e}`);
   } finally {
-    console.log("🔚 获取月用电量结束");
+    console.log("🔚 获取去年电量结束 \n");
   }
 }
 
 async function getSegmentDate(e, o) {
-  console.log("⏳ 江苏地区特殊处理...");
+  console.log("⏳ 江苏地区特殊处理...👇");
   try {
     let r = {
       url: `/api${$api.segmentDate}`,
@@ -1751,18 +1751,18 @@ async function getSegmentDate(e, o) {
       },
     };
     const s = await request(r);
-    log.info("✅ 江苏地区特殊处理成功"), log.debug(jsonStr(s, null, 2));
+    log.info("✅ 江苏地区特殊处理成功👆"), log.debug(jsonStr(s, null, 2));
     let t = s.billList;
     return t[t.length - 1];
   } catch (e) {
     throw new Error(`江苏地区特殊处理失败: ${e}`);
   } finally {
-    console.log("🔚 江苏地区特殊处理结束");
+    console.log("🔚 江苏地区特殊处理结束 \n");
   }
 }
 
 async function getStepElecQuantity(e, months) {
-  console.log("⏳ 获取阶梯用电...");
+  console.log("⏳ 获取阶梯用电...👇");
   try {
     const o = bindInfo.powerUserList[e],
       [r] = bizrt.userInfo;
@@ -1812,7 +1812,7 @@ async function getStepElecQuantity(e, months) {
       },
       g = await request(m);
     if (
-      (log.info("✅ 获取阶梯用电成功"),
+      (log.info("✅ 获取阶梯用电成功👆"),
       log.debug(jsonStr(g, null, 2)),
       "1" !== g.rtnCode)
     )
@@ -1821,7 +1821,7 @@ async function getStepElecQuantity(e, months) {
   } catch (e) {
     return Promise.reject(`获取阶梯用电失败: ${e}`);
   } finally {
-    console.log("🔚 获取阶梯用电结束");
+    console.log("🔚 获取阶梯用电结束 \n");
   }
 }
 
@@ -1831,15 +1831,15 @@ async function doLogin() {
 }
 async function showNotice() {
   console.log(""),
-    console.log("1. 本脚本仅用于学习研究，禁止用于商业用途"),
-    console.log("2. 本脚本不保证准确性、可靠性、完整性和及时性"),
-    console.log("3. 任何个人或组织均可无需经过通知而自由使用"),
-    console.log("4. 作者对任何脚本问题概不负责，包括由此产生的任何损失"),
-    console.log(
-      "5. 如果任何单位或个人认为该脚本可能涉嫌侵犯其权利，应及时通知并提供身份证明、所有权证明，我将在收到认证文件确认后删除"
-    ),
-    console.log("6. 请勿将本脚本用于商业用途，由此引起的问题与作者无关"),
-    console.log("7. 本脚本及其更新版权归作者所有"),
+    console.log("1. 本脚本仅用于学习研究执行后会生成Boxjs缓存数据"),
+    // console.log("2. 本脚本不保证准确性、可靠性、完整性和及时性"),
+    // console.log("3. 任何个人或组织均可无需经过通知而自由使用"),
+    // console.log("4. 作者对任何脚本问题概不负责，包括由此产生的任何损失"),
+    // console.log(
+    //   "5. 如果任何单位或个人认为该脚本可能涉嫌侵犯其权利，应及时通知并提供身份证明、所有权证明，我将在收到认证文件确认后删除"
+    // ),
+    // console.log("6. 请勿将本脚本用于商业用途，由此引起的问题与作者无关"),
+    // console.log("7. 本脚本及其更新版权归作者所有"),
     console.log("");
 }
 async function sendMsg(e, o, r, s) {
