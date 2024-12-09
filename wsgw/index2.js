@@ -1353,7 +1353,7 @@ async function login(e, o) {
         `👤 用户信息: ${s.userInfo[0].nickname || s.userInfo[0].loginAccount}`
       );
   } catch (e) {
-    return /验证错误/.test(e)
+    return /无效|失效|过期|重新获取|请求异常/.test(e)
       ? (log.error(`滑块验证出错, 重新登录: ${e}`), await doLogin())
       : Promise.reject(`登陆失败: ${e}`);
   } finally {
@@ -1546,7 +1546,11 @@ async function getDay31ElecQuantity(e) {
       c = {
         url: `/api${$api.busInfoApi}`,
         method: "post",
-        headers: { ...requestKey, token: bizrt.token, acctoken: accessToken },
+        headers: {
+          ...requestKey,
+          token: bizrt.token,
+          acctoken: accessToken,
+        },
         data: {
           params1: {
             serviceCode: $configuration.serviceCode,
@@ -1891,14 +1895,23 @@ function getDataSource(o) {
     try {
       await getDataSource(o);
     } catch (error) {
-      let months = new Date().getMonth() - 1;
-      if (months === -1) months = 11;
-      await getStepElecQuantity(o, months);
+      try {
+        await getElcFee(o);
+        await getDayElecQuantity(o);
+        await getDay31ElecQuantity(o);
+        await getMonthElecQuantity(o);
+        await getLastYearElecQuantity(o);
+        let months = new Date().getMonth() - 1;
+        if (months === -1) months = 11;
+        await getStepElecQuantity(o, months);
+      } catch (retryError) {
+        console.log(`获取数据失败: ${retryError}`);
+      }
     }
     const r = bindInfo.powerUserList[o];
     const c =
-      Number(eleBill?.historyOwe || "0") > 0 ||
-      Number(eleBill?.sumMoney || "0") < 0;
+      Number(Global.eleBill?.historyOwe || "0") > 0 ||
+      Number(Global.eleBill?.sumMoney || "0") < 0;
     e[o] = {
       eleBill: Global.eleBill,
       userInfo: r,
