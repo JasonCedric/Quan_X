@@ -2,6 +2,7 @@
     "name":"Jason_icons", 
     "description":"JasonCedric自用的一些图标，正常更新中", 
     "icons":[
+  {"name":"xzj", "url":"https://raw.gitmirror.com/JasonCedric/Quan_X/main/icon/xzj.png"},
   {"name":"mario0", "url":"https://raw.gitmirror.com/JasonCedric/Quan_X/main/icon/mario0.png"},
   {"name":"mario", "url":"https://raw.gitmirror.com/JasonCedric/Quan_X/main/icon/mario.png"},
   {"name":"French", "url":"https://raw.gitmirror.com/JasonCedric/Quan_X/main/icon/French.png"},
