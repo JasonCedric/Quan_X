@@ -22,7 +22,7 @@ Loon:
 
 [Script]
 cron "9 9 * * *" script-path=midea.js, timeout=300, tag=美的会员
-http-request ^https:\/\/mvip.midea.cn\/next\/mucuserinfo\/getmucuserinfo script-path=midea.js, timeout=10, tag=美的会员获取token
+http-request ^https:\/\/mvip.midea.cn\/next\/mucuserinfo\/getmucuserinfo script-path=Midea.js, timeout=10, tag=美的会员获取token
 
 [MITM]
 hostname =mvip.midea.cn
